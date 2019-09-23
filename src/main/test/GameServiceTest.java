@@ -10,7 +10,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -25,17 +24,18 @@ public class GameServiceTest {
     private GameService gameService;
 
     @Before
-    public void setUp()  {
+    public void setUp() {
 
-        Game game=new Game("CS:GO");
+        Game game = new Game("CS:GO");
         gameService.save(game);
         Mockito.when(gameRepository.findByName("CS:GO")).thenReturn(game);
 
     }
+
     @Test
     public void getAllLabOutputTest() {
 
-        String name="CS:GO";
+        String name = "CS:GO";
         Game game = gameRepository.findByName(name);
 
         assertNotNull(game);

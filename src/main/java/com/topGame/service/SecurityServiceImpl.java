@@ -16,12 +16,12 @@ import java.util.Calendar;
 @Service
 public class SecurityServiceImpl implements SecurityService {
 
-    private  AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
     private UserDetailsService userDetailsService;
     private TokenRepository tokenRepository;
 
-    public static final String INVALID_TOKEN="invalidToken";
-    public static final String EXPIRED="expired";
+    public static final String INVALID_TOKEN = "Invalid token";
+    public static final String EXPIRED = "The term of validity is expired";
 
     @Autowired
     public SecurityServiceImpl(AuthenticationManager authenticationManager, UserDetailsService userDetailsService,
@@ -29,18 +29,7 @@ public class SecurityServiceImpl implements SecurityService {
 
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
-        this.tokenRepository=tokenRepository;
-    }
-
-    @Override
-    public String findLoggedInUser() {
-
-        Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
-        if (userDetails instanceof UserDetails) {
-            return ((UserDetails) userDetails).getUsername();
-        }
-
-        return null;
+        this.tokenRepository = tokenRepository;
     }
 
     @Override

@@ -7,10 +7,10 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface CommentRepository extends JpaRepository<Comment,Long> {
+public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-    Comment findById(@Param("id") Long id);
-    Comment findByIdAndUser_Id(@Param("id") Long id,@Param("id") Long userId);
+    Comment findByIdAndUser_Id(@Param("id") Long id, @Param("id") Long userId);
+
     List<Comment> findByUser_Id(@Param("id") Long id);
 
     @Query("select comment from Comment comment where comment.post_id=:id")

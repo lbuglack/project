@@ -2,14 +2,13 @@ package com.topGame.entity;
 
 import com.topGame.entity.enums.Status;
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
 import org.w3c.dom.Text;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
-@Table(name="comment")
+@Table(name = "comment")
 @Data
 public class Comment {
 
@@ -20,18 +19,18 @@ public class Comment {
     @Column(nullable = false)
     private Text message;
 
-    @Column(precision = 2,columnDefinition = "double default 0")
+    @Column(precision = 2, columnDefinition = "double default 0")
     private double rating;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="post_id")
+    @JoinColumn(name = "post_id")
     private GameObject gameObject;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="author_id")
+    @JoinColumn(name = "author_id")
     private User user;
 
-    @CreatedDate
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
     private Date createdAt;
 
@@ -39,6 +38,12 @@ public class Comment {
     @Column(name = "status")
     private Status status;
 
-    public Comment(){}
+    public Comment() {
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = new java.util.Date();
+    }
 
 }

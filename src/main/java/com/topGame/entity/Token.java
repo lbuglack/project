@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 @Entity
-@Table(name="verification_token")
+@Table(name = "verification_token")
 @Data
 public class Token {
 
@@ -24,10 +24,10 @@ public class Token {
     @JoinColumn(nullable = false, name = "user_id")
     private User user;
 
-    @Column(name="expiry_date")
+    @Column(name = "expiry_date")
     private Date expiryDate;
 
-    public Token(){};
+    public Token() { }
 
     public Token(final String token, final User user) {
 

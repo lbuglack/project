@@ -11,7 +11,8 @@ import org.springframework.stereotype.Component;
 public class MyAspect {
 
     @Pointcut("execution(* com.topGame.service.UserServiceImpl.save(..))")
-    public void callAtMyServiceAnnotation() { }
+    public void callAtMyServiceAnnotation() {
+    }
 
     @Before("callAtMyServiceAnnotation()")
     public void beforeCallAt() {

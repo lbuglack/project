@@ -19,7 +19,6 @@ public class GameObjectController {
         this.gameObjectService = gameObjectService;
     }
 
-    //POST /object - Добавить объект
     @PostMapping("/object")
     public ResponseEntity<GameObject> addGameObject(@RequestBody GameObject gameObject) {
 
@@ -31,12 +30,11 @@ public class GameObjectController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    //DELETE /object/:id - удалить объект, удалить может только автор
     @DeleteMapping("/object/{id}")
     public ResponseEntity<GameObject> deleteGameObject(@PathVariable Long id) {
 
         GameObject gameObject = this.gameObjectService.getById(id);
-        if (gameObject!=null) {
+        if (gameObject != null) {
             this.gameObjectService.delete(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -44,7 +42,6 @@ public class GameObjectController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    //PUT /object/:id - Редактирование объекта, может только создатель поста
     @PutMapping("/object/{id}")
     public ResponseEntity<GameObject> updateGameObject(@PathVariable Long id, @RequestBody GameObject newGameObject) {
 
@@ -56,7 +53,6 @@ public class GameObjectController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    //GET /object - получить игровые объекты
     @GetMapping("/objects")
     public ResponseEntity<List<GameObject>> getAll() {
 
@@ -68,7 +64,6 @@ public class GameObjectController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    //GET /my - получить список постов авторизованного пользователя
     @GetMapping("/my")
     public ResponseEntity<List<GameObject>> getAllMyPosts(Long id) {
 

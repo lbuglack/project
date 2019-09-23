@@ -20,7 +20,6 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    //POST /articles/:id/comments - добавить со ссылкой на пост и пользователя
     @PostMapping("/articles/{id}/comments")
     public ResponseEntity<Comment> addComment(@RequestBody Comment comment, @PathVariable Long id) {
 
@@ -32,19 +31,17 @@ public class CommentController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    //DELETE /users /:id/comments/:id - удалить, удалить может только автор отзыва
     @DeleteMapping("/users/{authorId}/comments/{id}")
     public ResponseEntity<Comment> deleteComment(@PathVariable Long authorId, @PathVariable Long id) {
 
-        Comment comment=commentService.delete(id,authorId);
-        if(comment!=null){
+        Comment comment = commentService.delete(id, authorId);
+        if (comment != null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    //GET /users/:id/comments - список отзывов трейдера
     @GetMapping("/users/{id}/comments")
     public ResponseEntity<List<Comment>> getAllPostComments(@PathVariable Long id) {
 
@@ -56,14 +53,13 @@ public class CommentController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    // GET /users/:id/comments/:id - просмотр отзыва
     @GetMapping("/users/{authorId}/comments/{id}")
     public ResponseEntity<Optional<Comment>> getComment(@PathVariable Long authorId, @PathVariable Long id) {
 
         List<Comment> comments = this.commentService.getByAuthorId(authorId);
-        if(!comments.isEmpty()){
-            Optional<Comment> comment=comments.stream().filter(comment1 -> comment1.getId()==id).findFirst();
-            if(comment.isPresent()){
+        if (!comments.isEmpty()) {
+            Optional<Comment> comment = comments.stream().filter(comment1 -> comment1.getId() == id).findFirst();
+            if (comment.isPresent()) {
                 return new ResponseEntity<>(comment, HttpStatus.OK);
             }
         }
@@ -71,11 +67,10 @@ public class CommentController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    //PUT /articles/:id/comments – обновить отзыв
     @PutMapping("/articles/{id}/comments")
     public ResponseEntity<Comment> updateComment(@RequestBody Comment newComment, @PathVariable Long id) {
 
-        if (newComment!=null) {
+        if (newComment != null) {
             this.commentService.save(newComment);
             return new ResponseEntity<>(newComment, HttpStatus.CREATED);
         }

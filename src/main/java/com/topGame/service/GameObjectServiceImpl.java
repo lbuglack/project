@@ -59,6 +59,6 @@ public class GameObjectServiceImpl implements GameObjectService {
 
         log.info("IN GameObjectServiceImpl getById {}", id);
 
-        return  gameObjectRepository.findById(id);
+        return gameObjectRepository.findById(id);
     }
 }

@@ -7,6 +7,7 @@ import java.util.List;
 public interface GameService {
 
     Game save(Game game);
+
     List<Game> getAll();
 }
 

@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name="roles")
+@Table(name = "roles")
 @Data
 public class Role {
 
@@ -20,6 +20,6 @@ public class Role {
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 
-    public Role() {}
+    public Role() { }
 
 }

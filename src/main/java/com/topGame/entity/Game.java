@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table(name="game")
+@Table(name = "game")
 @Data
 public class Game {
 
@@ -13,21 +13,18 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name="name",nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @OneToOne(mappedBy = "game")
     private GameObject gameObject;
 
-    public Game(){}
-
-    public Game(String name){
-        this.name=name;
-
+    public Game() {
     }
 
-    public Game(String name, GameObject gameObject) {
+    public Game(String name) {
         this.name = name;
-        this.gameObject = gameObject;
+
     }
+
 }

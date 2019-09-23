@@ -18,17 +18,17 @@ public class GameObject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name="title",nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name="description",nullable = false)
+    @Column(name = "description", nullable = false)
     private Text description;
 
-    @Column(precision = 2,columnDefinition = "double default 0")
+    @Column(precision = 2, columnDefinition = "double default 0")
     private double rating;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="author_id", nullable=false)
+    @JoinColumn(name = "author_id", nullable = false)
     private User user;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -47,10 +47,11 @@ public class GameObject {
     @JoinColumn(name = "game_id", referencedColumnName = "id")
     private Game game;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy="gameObject")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "gameObject")
     private Set<Comment> commentSet;
 
-    public GameObject(){}
+    public GameObject() {
+    }
 
     @PrePersist
     protected void onCreate() {
@@ -61,7 +62,5 @@ public class GameObject {
     protected void onUpdate() {
         updatedAt = new Date();
     }
-
-
 
 }

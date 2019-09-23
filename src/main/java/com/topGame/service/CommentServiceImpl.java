@@ -36,11 +36,11 @@ public class CommentServiceImpl implements CommentService {
         return commentRepository.findAllPostComments(id);
     }
 
-    @Override//return string or comment
-    public Comment delete(Long id,Long userId) {
+    @Override
+    public Comment delete(Long id, Long userId) {
         log.info("IN CustomerServiceImpl delete {}", id);
-        Comment comment=commentRepository.findByIdAndUser_Id(id,userId);
-        if(comment!=null){
+        Comment comment = commentRepository.findByIdAndUser_Id(id, userId);
+        if (comment != null) {
             commentRepository.delete(comment);
             return comment;
         }
@@ -52,6 +52,6 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> getByAuthorId(Long id) {
         log.info("IN CommentServiceImpl getByAuthorId {}", id);
 
-        return  commentRepository.findByUser_Id(id);
+        return commentRepository.findByUser_Id(id);
     }
 }
