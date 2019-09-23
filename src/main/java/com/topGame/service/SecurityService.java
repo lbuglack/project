@@ -4,4 +4,5 @@ public interface SecurityService {
 
     String findLoggedInUser(); // find logged in user
     void autoLogin(String username, String password); // authorisation
+    String validateToken(long id, String token);
 }

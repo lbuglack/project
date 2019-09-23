@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-//add in vp
+
 public class EmailValidator implements ConstraintValidator<ValidationEmail, String> {
 
     private Pattern pattern;
@@ -16,8 +16,7 @@ public class EmailValidator implements ConstraintValidator<ValidationEmail, Stri
             "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
     @Override
-    public void initialize(final ValidationEmail constraintAnnotation) {
-    }
+    public void initialize(final ValidationEmail constraintAnnotation) {}
 
     @Override
     public boolean isValid(final String email, final ConstraintValidatorContext context) {
@@ -25,8 +24,10 @@ public class EmailValidator implements ConstraintValidator<ValidationEmail, Stri
     }
 
     private boolean validateEmail(final String email) {
+
         pattern = Pattern.compile(EMAIL_PATTERN);
         matcher = pattern.matcher(email);
+
         return matcher.matches();
     }
 }

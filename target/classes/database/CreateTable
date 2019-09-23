@@ -1,5 +1,3 @@
-
-
 CREATE TABLE IF NOT EXISTS users(
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50)   NOT NULL,
@@ -14,33 +12,22 @@ CREATE TABLE IF NOT EXISTS users(
 CREATE TABLE IF NOT EXISTS roles (
     id  INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL
-                                 );
+ );
 
 CREATE TABLE user_roles (
-                            user_id INT NOT NULL,
-                            role_id INT NOT NULL,
-                            FOREIGN KEY (user_id) REFERENCES users (id),
-                            FOREIGN KEY (role_id) REFERENCES roles (id)
+    user_id INT NOT NULL,
+    role_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (id),
+    FOREIGN KEY (role_id) REFERENCES roles (id)
 );
 
-CREATE TABLE IF NOT EXISTS trader(
-                                     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-                                     company_name VARCHAR(50)   NOT NULL,
-    first_name VARCHAR(50)   NOT NULL,
-    last_name VARCHAR(70)  NOT NULL,
-    password VARCHAR(20) NOT NULL,
-    email VARCHAR(40) NOT NULL,
-    created_at DATETIME NOT NULL DEFAULT CURRENT_DATE()
-
-    );
-
 CREATE TABLE IF NOT EXISTS comment(
-                                      id BIGINT AUTO_INCREMENT PRIMARY KEY,
-                                      message TEXT NOT NULL,
-                                      post_id BIGINT NOT NULL,
-                                      author_id BIGINT NOT NULL,
-                                      created_at DATETIME NOT NULL DEFAULT CURRENT_DATE(),
-    approved VARCHAR(15) NOT NULL DEFAULT 'INPROCESS',
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    message TEXT NOT NULL,
+    post_id BIGINT NOT NULL,
+    author_id BIGINT NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_DATE(),
+    status VARCHAR(15) NOT NULL DEFAULT 'INPROCESS',
     FOREIGN KEY (author_id) REFERENCES users(id),
     FOREIGN KEY (post_id) REFERENCES game_object(id)
 
@@ -48,8 +35,8 @@ CREATE TABLE IF NOT EXISTS comment(
 
 CREATE TABLE IF NOT EXISTS game_object(
 
-                                          id BIGINT AUTO_INCREMENT PRIMARY KEY,
-                                          title VARCHAR(50)   NOT NULL,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(50)   NOT NULL,
     description TEXT NOT NULL,
     rating DOUBLE NOT NULL DEFAULT 0,
     author_id BIGINT NOT NULL,
@@ -57,12 +44,19 @@ CREATE TABLE IF NOT EXISTS game_object(
     updated_at DATETIME NOT NULL DEFAULT CURRENT_DATE(),
     game_id BIGINT NOT NULL,
     status VARCHAR(15) NOT NULL DEFAULT 'INPROCESS',
-    FOREIGN KEY (author_id) REFERENCES trader(id),
+    FOREIGN KEY (author_id) REFERENCES users(id),
     FOREIGN KEY (game_id) REFERENCES game(id)
 
     );
 
 CREATE TABLE IF NOT EXISTS game(
-                                   id BIGINT AUTO_INCREMENT PRIMARY KEY,
-                                   name VARCHAR(50)   NOT NULL
-    )
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50)   NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS game(
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    token VARCHAR(255)   NOT NULL,
+    user_id BIGINT NOT NULL,
+    expiry_date  DATETIME NOT NULL
+)

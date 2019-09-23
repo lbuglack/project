@@ -10,7 +10,7 @@ import java.util.Date;
 @Entity
 @Table(name="verification_token")
 @Data
-public class VerificationToken {
+public class Token {
 
     private static final int EXPIRATION = 60 * 24;
 
@@ -27,9 +27,10 @@ public class VerificationToken {
     @Column(name="expiry_date")
     private Date expiryDate;
 
-    public VerificationToken(){};
+    public Token(){};
 
-    public VerificationToken(final String token, final User user) {
+    public Token(final String token, final User user) {
+
         super();
 
         this.token = token;
@@ -38,6 +39,7 @@ public class VerificationToken {
     }
 
     private Date calculateExpiryDate(int expiryTimeInMinutes) {
+
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Timestamp(cal.getTime().getTime()));
         cal.add(Calendar.MINUTE, expiryTimeInMinutes);

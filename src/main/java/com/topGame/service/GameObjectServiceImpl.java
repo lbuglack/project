@@ -23,33 +23,42 @@ public class GameObjectServiceImpl implements GameObjectService {
 
     @Override
     public GameObject save(GameObject gameObject) {
+
         log.info("IN GameObjectServiceImpl save {}", gameObject);
         gameObject.setStatus(Status.INPROCESS);
+
         return gameObjectRepository.saveAndFlush(gameObject);
     }
 
     @Override
     public void delete(Long id) {
+
         log.info("IN GameObjectServiceImpl delete {}", id);
+
         gameObjectRepository.delete(id);
     }
 
     @Override
     public List<GameObject> getAll() {
+
         log.info("IN GameObjectServiceImpl getAll ");
+
         return gameObjectRepository.findAll();
     }
 
     @Override
     public List<GameObject> getAllMyOwnPosts(Long id) {
+
         log.info("IN GameObjectServiceImpl getAllMyPosts {}", id);
+
         return gameObjectRepository.findByUser_Id(id);
     }
 
     @Override
     public GameObject getById(Long id) {
+
         log.info("IN GameObjectServiceImpl getById {}", id);
+
         return  gameObjectRepository.findById(id);
     }
-
 }

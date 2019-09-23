@@ -41,6 +41,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="settings.editor.selected.configurable" value="project.propCompiler" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -54,7 +55,17 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.GameServiceTest.getAllLabOutputTest">
+    <configuration name="GameServiceTest.getAllLabOutputTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="topGame" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="GameServiceTest" />
+      <option name="METHOD_NAME" value="getAllLabOutputTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="com.topGame []" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
       <MavenSettings>
         <option name="myGeneralSettings" />
@@ -78,6 +89,11 @@
       </MavenSettings>
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.GameServiceTest.getAllLabOutputTest" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ServiceViewManager">
     <option name="allServicesViewState">
@@ -101,7 +117,10 @@
       <updated>1568566090180</updated>
       <workItem from="1568566094137" duration="16913000" />
       <workItem from="1568703463353" duration="20064000" />
-      <workItem from="1568798442085" duration="3595000" />
+      <workItem from="1568798442085" duration="4194000" />
+      <workItem from="1568836440967" duration="21000" />
+      <workItem from="1568962917729" duration="29378000" />
+      <workItem from="1569241623237" duration="11084000" />
     </task>
     <servers />
   </component>

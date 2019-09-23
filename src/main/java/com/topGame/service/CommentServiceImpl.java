@@ -25,31 +25,33 @@ public class CommentServiceImpl implements CommentService {
     public Comment save(Comment comment) {
         log.info("IN CommentServiceImpl save {}", comment);
         comment.setStatus(Status.INPROCESS);
+
         return commentRepository.saveAndFlush(comment);
     }
 
     @Override
     public List<Comment> getAll(Long id) {
         log.info("IN CommentServiceImpl getAll {}", id);
+
         return commentRepository.findAllPostComments(id);
     }
 
-    @Override
-    public void delete(Long id) {
+    @Override//return string or comment
+    public Comment delete(Long id,Long userId) {
         log.info("IN CustomerServiceImpl delete {}", id);
-        commentRepository.delete(id);
+        Comment comment=commentRepository.findByIdAndUser_Id(id,userId);
+        if(comment!=null){
+            commentRepository.delete(comment);
+            return comment;
+        }
+
+        return null;
     }
 
     @Override
     public List<Comment> getByAuthorId(Long id) {
         log.info("IN CommentServiceImpl getByAuthorId {}", id);
+
         return  commentRepository.findByUser_Id(id);
     }
-
-    @Override
-    public Comment getById(Long id) {
-        log.info("IN CommentServiceImpl getById {}", id);
-        return  commentRepository.findById(id);
-    }
-
 }

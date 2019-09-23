@@ -2,12 +2,10 @@ package com.topGame.entity;
 
 import com.topGame.entity.enums.Status;
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.w3c.dom.Text;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 
 
@@ -15,6 +13,7 @@ import java.util.Set;
 @Table(name = "game_object")
 @Data
 public class GameObject {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -32,11 +31,11 @@ public class GameObject {
     @JoinColumn(name="author_id", nullable=false)
     private User user;
 
-    @CreatedDate
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
     private Date createdAt;
 
-    @LastModifiedDate
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Date updatedAt;
 
@@ -52,5 +51,17 @@ public class GameObject {
     private Set<Comment> commentSet;
 
     public GameObject(){}
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = new Date();
+    }
+
+
 
 }

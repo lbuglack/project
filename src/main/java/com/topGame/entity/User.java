@@ -13,6 +13,7 @@ import java.util.Set;
 @Table(name = "users")
 @Data
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -46,6 +47,5 @@ public class User {
     private boolean enabled;
 
     public User(){}
-
 
 }

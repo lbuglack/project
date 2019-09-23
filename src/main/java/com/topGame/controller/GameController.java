@@ -24,13 +24,12 @@ public class GameController {
     public ResponseEntity<List<Game>> getAll() {
 
         List<Game> games = this.gameService.getAll();
-        if (games.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (!games.isEmpty()) {
+            return new ResponseEntity<>(games, HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(games, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-
 
     //POST /games – добавить игру
     @PostMapping("/games")
@@ -39,21 +38,18 @@ public class GameController {
         if (game!=null) {
             this.gameService.save(game);
             return new ResponseEntity<>(game, HttpStatus.CREATED);
-
         }
 
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
     }
 
     //PUT /games/:id – обновить игру
     @PutMapping("/games/{id}")
     public ResponseEntity<Game> updateGame(@RequestBody Game newGame, @PathVariable Long id) {
-        if (newGame != null) {
 
+        if (newGame != null) {
             this.gameService.save(newGame);
             return new ResponseEntity<>(newGame, HttpStatus.CREATED);
-
         }
 
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

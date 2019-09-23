@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Table(name="game")
 @Data
 public class Game {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -20,10 +21,13 @@ public class Game {
 
     public Game(){}
 
-    public Game(String name, GameObject gameObject){
+    public Game(String name){
         this.name=name;
-        this.gameObject=gameObject;
 
     }
 
+    public Game(String name, GameObject gameObject) {
+        this.name = name;
+        this.gameObject = gameObject;
+    }
 }

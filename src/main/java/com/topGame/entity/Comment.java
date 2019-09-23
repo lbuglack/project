@@ -5,7 +5,6 @@ import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.w3c.dom.Text;
 
-
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -13,6 +12,7 @@ import java.sql.Date;
 @Table(name="comment")
 @Data
 public class Comment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -40,15 +40,5 @@ public class Comment {
     private Status status;
 
     public Comment(){}
-
-    public Comment(Text message,double rating,GameObject gameObject, User user){
-
-        this.message=message;
-        this.rating=rating;
-        this.gameObject=gameObject;
-        this.user=user;
-        this.status= Status.INPROCESS;
-    }
-
 
 }

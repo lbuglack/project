@@ -2,15 +2,18 @@ package com.topGame.service;
 
 import com.topGame.entity.Role;
 import com.topGame.entity.User;
-import com.topGame.entity.VerificationToken;
+import com.topGame.entity.Token;
 import com.topGame.repository.RoleRepository;
 import com.topGame.repository.UserRepository;
-import com.topGame.repository.VerificationTokenRepository;
+import com.topGame.repository.TokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 @Service
@@ -19,16 +22,18 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private VerificationTokenRepository tokenRepository;
+    private TokenRepository tokenRepository;
+    private MessageSource messages;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository,
-                           BCryptPasswordEncoder bCryptPasswordEncoder, VerificationTokenRepository tokenRepository) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder,
+                           TokenRepository tokenRepository, MessageSource messages) {
 
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.tokenRepository=tokenRepository;
+        this.messages=messages;
 
     }
 
@@ -53,14 +58,54 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public VerificationToken getVerificationToken(String VerificationToken) {
+    public Token getToken(String VerificationToken) {
         return tokenRepository.findByToken(VerificationToken);
     }
 
 
     @Override
-    public void createVerificationToken(User user, String token) {
-        VerificationToken myToken = new VerificationToken(token, user);
+    public void saveToken(User user, String token) {
+
+        Token myToken = new Token(token, user);
         tokenRepository.save(myToken);
+    }
+
+    @Override
+    public SimpleMailMessage constructResetTokenEmail(String contextPath, Locale locale, String token, User user) {
+
+        String url=createUrl(contextPath,token,user);
+        String message = messages.getMessage("message.resetPassword", null, locale);
+
+        return constructEmail("Reset Password", message + " \r\n" +url , user);
+    }
+
+    @Override
+    public SimpleMailMessage constructEmail(String subject, String body,User user) {
+
+        SimpleMailMessage email = new SimpleMailMessage();
+
+        email.setSubject(subject);
+        email.setText(body);
+        email.setTo(user.getEmail());
+
+        return email;
+    }
+
+    @Override
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public void changeUserPassword(User user, String password) {
+
+        user.setPassword(bCryptPasswordEncoder.encode(password));
+        userRepository.save(user);
+    }
+
+    private String createUrl(String contextPath, String token, User user){
+
+        String url = contextPath + "/user/changePassword?id=" + user.getId() + "&token=" + token;
+        return url;
     }
 }

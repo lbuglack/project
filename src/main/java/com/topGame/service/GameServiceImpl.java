@@ -21,19 +21,17 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public Game save(Game game) {
+
         log.info("IN GameServiceImpl save {}", game);
+
         return gameRepository.saveAndFlush(game);
     }
 
     @Override
-    public void delete(String name) {
-        log.info("IN GameServiceImpl delete {}", name);
-        gameRepository.deleteByName(name);
-    }
-
-    @Override
     public List<Game> getAll() {
+
         log.info("IN GameServiceImpl getAll");
+
         return gameRepository.findAll();
     }
 

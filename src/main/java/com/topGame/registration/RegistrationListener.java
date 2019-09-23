@@ -22,21 +22,30 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
                 this.userService=userService;
                 this.messages = messages;
                 this.mailSender = mailSender;
-
         }
-
 
         @Override
         public void onApplicationEvent(OnRegistrationCompleteEvent event) {
-
                 this.confirmRegistration(event);
         }
 
         private void confirmRegistration(OnRegistrationCompleteEvent event) {
 
                 User user = event.getUser();
+                String token=createToken(user);
+
+                sendConfirmationEmail(user,event,token);
+        }
+
+        private String createToken(User user){
+
                 String token = UUID.randomUUID().toString();
-                userService.createVerificationToken(user, token);
+                userService.saveToken(user, token);
+
+                return token;
+        }
+
+        private void sendConfirmationEmail(User user, OnRegistrationCompleteEvent event, String token){
 
                 String recipientAddress = user.getEmail();
                 String subject = "Registration Confirmation";
@@ -49,5 +58,4 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
                 email.setText(message + " rn" + "http://localhost:8080" + confirmationUrl);
                 mailSender.send(email);
         }
-
 }
