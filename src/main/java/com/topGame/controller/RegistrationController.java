@@ -18,7 +18,6 @@ public class RegistrationController {
     private MessageSource messages;
     private SecurityService securityService;
 
-
     @Autowired
     public RegistrationController(UserServiceImpl userService, MessageSource messages,
                                   SecurityService securityService) {

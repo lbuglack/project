@@ -30,7 +30,6 @@ public class UserController {
 
     public static final String REGISTRATION_PAGE = "registration";
 
-
     @Autowired
     public UserController(UserService userService, SecurityService securityService, UserValidator userValidator,
                           ApplicationEventPublisher eventPublisher, JavaMailSender mailSender) {
