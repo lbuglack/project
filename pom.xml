@@ -19,7 +19,7 @@
         <mysql.version>6.0.3</mysql.version>
         <hb.manager>4.2.5.Final</hb.manager>
         <lombok.version>1.16.18</lombok.version>
-        <spring-security.version>4.0.2.RELEASE</spring-security.version>
+        <spring-security.version>5.2.10.RELEASE</spring-security.version>
         <spring-data-jpa.version>1.8.2.RELEASE</spring-data-jpa.version>
         <spring-context.version>5.0.1.RELEASE</spring-context.version>
         <hibernate.version>4.3.11.Final</hibernate.version>
